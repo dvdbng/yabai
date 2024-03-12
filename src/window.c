@@ -241,36 +241,36 @@ void window_serialize(FILE *rsp, struct window *window)
 {
     TIME_FUNCTION;
 
-    char *role = window_role_ts(window);
-    char *subrole = window_subrole_ts(window);
+    char *role = "asd"; // window_role_ts(window);
+    char *subrole =  "asd"; //window_subrole_ts(window);
     char *app = window->application->name;
     char *escaped_app = ts_string_escape(app);
-    char *title = window_title_ts(window);
-    char *escaped_title = ts_string_escape(title);
-    uint64_t sid = window_space(window->id);
-    int space = space_manager_mission_control_index(sid);
-    int display = display_manager_display_id_arrangement(space_display_id(sid));
-    int level = window_level(window->id);
-    int sub_level = window_sub_level(window->id);
-    const char *layer = window_layer(level);
-    const char *sub_layer = window_layer(sub_level);
-    bool is_minimized = window_is_minimized(window);
-    bool visible = !is_minimized && !window->application->is_hidden && (window_check_flag(window, WINDOW_STICKY) || space_is_visible(sid));
-    float opacity = window_opacity(window->id);
-    bool grabbed = window == g_mouse_state.window;
+    char *title =  "asd"; //window_title_ts(window);
+    char *escaped_title =  "asd"; //ts_string_escape(title);
+    uint64_t sid = 0; //window_space(window->id);
+    int space = 0; //space_manager_mission_control_index(sid);
+    int display = 0; //display_arrangement(space_display_id(sid));
+    int level =  0; //window_level(window->id);
+    int sub_level =  0; //window_sub_level(window->id);
+    const char *layer = ""; //window_layer(level);
+    const char *sub_layer = "" ; //window_layer(sub_level);
+    bool is_minimized = false; //window_is_minimized(window);
+    bool visible = true; //!is_minimized && !window->application->is_hidden && (window_check_flag(window, WINDOW_STICKY) || space_is_visible(sid));
+    float opacity = 0; //window_opacity(window->id);
+    bool grabbed = false; //window == g_mouse_state.window;
 
-    struct view *view = window_manager_find_managed_window(&g_window_manager, window);
-    struct window_node *node = view ? view_find_window_node(view, window->id) : NULL;
+    //struct view *view = window_manager_find_managed_window(&g_window_manager, window);
+    //struct window_node *node = view ? view_find_window_node(view, window->id) : NULL;
 
-    char split[MAXLEN];
-    snprintf(split, sizeof(split), "%s", window_node_split_str[node && node->parent ? node->parent->split : 0]);
+    char split[MAXLEN] = "";
+    //snprintf(split, sizeof(split), "%s", window_node_split_str[node && node->parent ? node->parent->split : 0]);
 
-    char child[MAXLEN];
-    snprintf(child, sizeof(child), "%s", window_node_child_str[node ? window_node_is_left_child(node) ? CHILD_FIRST : CHILD_SECOND : CHILD_NONE]);
+    char child[MAXLEN] = "";
+    //snprintf(child, sizeof(child), "%s", window_node_child_str[node ? window_node_is_left_child(node) ? CHILD_FIRST : CHILD_SECOND : CHILD_NONE]);
 
-    bool zoom_parent = node && node->zoom && node->zoom == node->parent;
-    bool zoom_fullscreen = node && node->zoom && node->zoom == view->root;
-    int stack_index = node && node->window_count > 1 ? window_node_index_of_window(node, window->id)+1 : 0;
+    bool zoom_parent = false; //node && node->zoom && node->zoom == node->parent;
+    bool zoom_fullscreen = false; // node && node->zoom && node->zoom == view->root;
+    int stack_index = 0; // node && node->window_count > 1 ? window_node_index_of_window(node, window->id)+1 : 0;
 
     fprintf(rsp,
             "{\n"
